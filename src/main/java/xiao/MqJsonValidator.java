@@ -16,7 +16,11 @@ import java.io.IOException;
  * note:用于验证从mq中获取的json数据
  */
 public class MqJsonValidator {
-    //schema文件的配置路径，现在是单一的schema形式
+
+    /***
+     *  schema file path , now it is just one schema.
+     */
+
     private static String SCHEMA_PATH = "E:/IdeaProjects/testP.json";
     private JsonNode jsonNode;
     private static ProcessingReport report = null;
@@ -24,12 +28,15 @@ public class MqJsonValidator {
     public MqJsonValidator(){
 
     }
-    //从json字符串中获取jsonNode对象
+    //form json string to get jsonNode
     public static JsonNode getJsonNodeFrom(String json) throws IOException {
         JsonNode jsonNode = JsonLoader.fromString(json);
         return jsonNode;
     }
-    //从json文件中获取jsonNode对象
+    /**
+     * from json file to get jsonNode
+     */
+
     public static JsonNode getJsonSchemaFrom(String path) throws IOException {
         JsonNode jsonSchema = JsonLoader.fromPath(path);
         return jsonSchema;
@@ -45,13 +52,18 @@ public class MqJsonValidator {
 
         System.out.println(report);
     }
-    //验证jsonNode的方法
+    /**
+     * the function of checking jsonNode
+     */
+
     public static ProcessingReport validate(JsonNode jsonNode,JsonNode jsonSchema){
         report = JsonSchemaFactory.byDefault().getValidator().
                 validateUnchecked(jsonSchema,jsonNode);
         return report;
     }
-    //传入的对象是JSONObject验证方法
+    /**
+     * object of the checking is JSONObject
+     */
     public static ProcessingReport jsonValidate(JSONPObject jsonpObject) throws IOException {
         if(report == null){
 
